@@ -38,6 +38,7 @@ def realizar_busca(g : Grafo, vertice_inicial : int) -> List[List[int]]:
         for vizinho in vizinhos:
             if vizinho not in vertices_expandidos:
                 fila.append((vizinho, nivel_atual+1))
+    
     return resultados
     
 def exibir_resultados(resultados : Dict[int, List[int]]):
