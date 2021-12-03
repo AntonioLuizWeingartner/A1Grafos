@@ -44,7 +44,13 @@ def realizar_busca(g : Grafo, vertice_inicial : int) -> List[List[int]]:
 def exibir_resultados(resultados : Dict[int, List[int]]):
     for nivel in resultados:
         vertices = resultados[nivel]
-        print("{}: {}".format(nivel, vertices))
+        
+        string_formatada = ""
+
+        for vertice in vertices:
+            string_formatada += "{},".format(vertice) 
+
+        print("{}: {}".format(nivel, string_formatada[:-1]))
 
 def main():
     caminho_arquivo : str = input("Insira o nome do arquivo de grafos: ")
