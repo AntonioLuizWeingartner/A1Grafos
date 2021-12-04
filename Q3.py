@@ -99,10 +99,18 @@ def computar_ciclo_euleriano_auxiliar(g : Grafo,
                     
     return (1, ciclo)
 
+def exibir_resultados(resultado:  Tuple[int, List[int]]):
+    print(resultado[0])
+    string_formatada = ""
+    for v in resultado[1]:
+        string_formatada += "{},".format(v)
+
+    print(string_formatada[:-1])
+
 def main():
     g = Grafo()
     g.ler(input("Insira o nome do arquivo: "))
-    print(computar_ciclo_euleriano(g))
+    exibir_resultados(computar_ciclo_euleriano(g))
 
 if __name__ == "__main__":
     main()
