@@ -3,7 +3,30 @@ Questão 4: Dijkstra
 """
 
 from grafo import Grafo
-from queue import PriorityQueue
+
+
+def exibir_resultados(d, a, vertice_inicial):
+    for u in range(len(a)):
+        print(u + 1, end=": ")
+        ant = []  # anteriores ao vertice u
+        shortest_path(ant, a, vertice_inicial - 1, u)
+        if d[u] == float("inf"):
+            print(
+                "Caminho Inexistente de %d para %d; d=inf" % (vertice_inicial, (u + 1))
+            )
+        else:
+            print(*ant, sep=",", end="; ")
+            print("d=%d" % d[u])
+
+
+# similar ao algoritmo 14 das anotacoes para disciplina
+def shortest_path(ant, a, u, v):
+    if u == v:
+        ant.append((u + 1))
+    else:
+        if a[v] != None:
+            shortest_path(ant, a, u, a[v])
+            ant.append((v + 1))
 
 
 def dijkstra(g: Grafo, origem: int):
@@ -29,7 +52,6 @@ def dijkstra(g: Grafo, origem: int):
     distancia[origem - 1] = 0
 
     while False in visitados:
-        print()
 
         # encontra o primeiro vertice nao visitado
         for i in range(cardinalidade_v):
@@ -50,9 +72,7 @@ def dijkstra(g: Grafo, origem: int):
                 distancia[v - 1] = distancia[u] + g.peso(u + 1, v)
                 antecessor[v - 1] = u
 
-    print(visitados)
-    print(distancia)
-    print(antecessor)
+    return distancia, antecessor
 
 
 def main():
@@ -60,8 +80,8 @@ def main():
     vertice_inicial: int = int(input("Insira o numero do vértice inicial: "))
     g: Grafo = Grafo()
     g.ler(caminho_arquivo)
-    resultados = dijkstra(g, vertice_inicial)
-    exibir_resultados(resultados)
+    d, a = dijkstra(g, vertice_inicial)
+    exibir_resultados(d, a, vertice_inicial)
 
 
 if __name__ == "__main__":
